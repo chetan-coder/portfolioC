@@ -17,10 +17,10 @@ show_reading_time: false
         <img src="{{ '/favicon.ico' | relative_url }}" alt="OCS logo" style="width: 16px; height: 16px;">
         OCS
     </a>
-    <a href="https://github.com/Open-Coding-Society/portfolio" style="text-decoration: none; display: inline-flex; align-items: center; gap: 8px; padding: 10px 14px; border: 1px solid #FFF; border-radius: 6px; font-weight: 700; transition: all 0.3s;">
+    <a href="https://github.com/Open-Coding-Society/portfolio" style="text-decoration: none; display: inline-flex; align-items: center; gap: 8px; padding: 10px 14px; border: 1px solid #FFF; border-radius: 6px; font-weight: 700;">
         GitHub
     </a>
-    <a href="https://vscode.dev/" style="text-decoration: none; display: inline-flex; align-items: center; gap: 8px; padding: 10px 14px; border: 1px solid #007ACC; border-radius: 6px; font-weight: 700; transition: all 0.3s;">
+    <a href="https://vscode.dev/" style="text-decoration: none; display: inline-flex; align-items: center; gap: 8px; padding: 10px 14px; border: 1px solid #007ACC; border-radius: 6px; font-weight: 700;">
         VSCode.dev
     </a>
 </div>
@@ -30,10 +30,18 @@ show_reading_time: false
 ### My Lessons
 
 <div style="display: flex; flex-wrap: wrap; gap: 10px;">
-    <a href="{{site.baseurl}}/code/javascript">JS Basics</a>
-    <a href="{{site.baseurl}}/game/essentials/variables">JS Variables</a>
-    <a href="{{site.baseurl}}/gamerunner">Gamerunner</a>
-    <a href="{{site.baseurl}}/network/stack">Networking</a>
+    <a href="{{site.baseurl}}/code/javascript" class="btn" style="background-color: var(--green); color: black;">
+        JS Basics
+    </a>
+    <a href="{{site.baseurl}}/game/essentials/variables" class="btn" style="background-color: var(--blue); color: white;">
+        JS Variables
+    </a>
+    <a href="{{site.baseurl}}/gamerunner" class="btn" style="background-color: var(--warn); color: black;">
+        Gamerunner
+    </a>
+    <a href="{{site.baseurl}}/network/stack" class="btn" style="background-color: var(--orange); color: white;">
+        Networking
+    </a>
 </div>
 
 <br>
@@ -41,11 +49,16 @@ show_reading_time: false
 ### Class Progress
 
 <div style="display: flex; flex-wrap: wrap; gap: 10px;">
-    <a href="{{site.baseurl}}/snake">Snake</a>
-    <a href="{{site.baseurl}}/gamify/parallax">Fish</a>
-    <a href="{{site.baseurl}}/gamify">Gamify</a>
-    <a href="{{site.baseurl}}/cs-pathway">CS Pathway</a>
-    <a href="https://gates.opencodingsociety.com/gamify/gategamev2">Gate Game</a>
+    <a href="{{site.baseurl}}/snake" class="btn">Snake</a>
+    <a href="{{site.baseurl}}/gamify/parallax" class="btn" style="background-color: var(--green);">Fish</a>
+    <a href="{{site.baseurl}}/gamify" class="btn" style="background-color: var(--teal);">Gamify</a>
+    <a href="{{site.baseurl}}/cs-pathway" class="btn" style="background-color: var(--orange);">CS Pathway</a>
+
+    <a href="https://gates.opencodingsociety.com/gamify/gategamev2"
+       class="btn"
+       style="background-color: #8B5CF6; color: white;">
+        Gate Game
+    </a>
 </div>
 
 <br>
@@ -53,10 +66,18 @@ show_reading_time: false
 ### My Projects
 
 <div style="display: flex; flex-wrap: wrap; gap: 10px;">
-    <a href="{{site.baseurl}}/exam-predictor">Exam Predictor</a>
-    <a href="{{site.baseurl}}/grade-predictor">Grade Predictor</a>
-    <a href="{{site.baseurl}}/study-tracker">Study Tracker</a>
-    <a href="{{site.baseurl}}/score-predictor">Score Predictor</a>
+    <a href="{{site.baseurl}}/exam-predictor" class="btn" style="background-color: var(--blue); color: white;">
+        Exam Predictor
+    </a>
+    <a href="{{site.baseurl}}/grade-predictor" class="btn" style="background-color: var(--green); color: black;">
+        Grade Predictor
+    </a>
+    <a href="{{site.baseurl}}/study-tracker" class="btn" style="background-color: var(--teal); color: white;">
+        Study Tracker
+    </a>
+    <a href="{{site.baseurl}}/score-predictor" class="btn" style="background-color: var(--orange); color: white;">
+        Score Predictor
+    </a>
 </div>
 
 <br><br><br>
@@ -65,19 +86,32 @@ show_reading_time: false
 <h3>About Gate Game 🗼</h3>
 
 <blockquote>
-Gate Game is a multi-level platformer game built with JavaScript using an object-oriented game engine. I contributed by building the <strong>Maze of Shadows</strong> sublevel.
+Gate Game is a multi-level platformer game built with JavaScript using an object-oriented game engine. I contributed by building the <strong>Maze of Shadows</strong> sublevel, which demonstrates core CS 111 concepts.
 </blockquote>
 
-<p>
-This project demonstrates OOP, async logic, collisions, and game state systems.
-</p>
+<p><strong>Object-Oriented Programming:</strong> The level uses a class structure with Player, NPC, and SplineBarrier objects.</p>
 
 <pre><code>
 { class: Player, data: sprite_data_octopus },
 { class: Npc, data: sprite_data_shadow },
+{ class: SplineBarrier, data: seg1 },
 </code></pre>
 
-<p><strong>Async transition example:</strong></p>
+<p><strong>Methods & Parameters:</strong> The spline function converts relative coordinates into pixel values.</p>
+
+<pre><code>
+function spline(id, points) {
+  return {
+    id,
+    splinePoints: points.map(([px, py]) => ({
+      x: Math.round(px * width),
+      y: Math.round(py * height)
+    }))
+  };
+}
+</code></pre>
+
+<p><strong>Async Logic:</strong> Level transitions use requestAnimationFrame and setTimeout.</p>
 
 <pre><code>
 requestAnimationFrame(() => {
@@ -91,11 +125,34 @@ requestAnimationFrame(() => {
 
 <div style="display: flex; flex-wrap: wrap; gap: 14px; margin-top: 10px;">
 
-    <a href="{{site.baseurl}}/snake">🐍 Snake</a>
-    <a href="{{site.baseurl}}/gamify/parallax">🐟 Fish</a>
-    <a href="{{site.baseurl}}/gamify">🎮 Gate Game</a>
-    <a href="{{site.baseurl}}/cs-pathway">🚀 CS Pathway</a>
+    <a href="{{site.baseurl}}/snake"
+       class="btn"
+       style="background: linear-gradient(135deg, #111827, #1F2937); color: white;">
+       🐍 Snake
+    </a>
 
-    <a href="https://gates.opencodingsociety.com/gamify/gategamev2">🗼 Gate Game</a>
+    <a href="{{site.baseurl}}/gamify/parallax"
+       class="btn"
+       style="background: linear-gradient(135deg, #064E3B, #10B981); color: white;">
+       🐟 Fish
+    </a>
+
+    <a href="{{site.baseurl}}/gamify"
+       class="btn"
+       style="background: linear-gradient(135deg, #0F172A, #14B8A6); color: white;">
+       🎮 Gate Game
+    </a>
+
+    <a href="{{site.baseurl}}/cs-pathway"
+       class="btn"
+       style="background: linear-gradient(135deg, #7C2D12, #F97316); color: white;">
+       🚀 CS Pathway
+    </a>
+
+    <a href="https://gates.opencodingsociety.com/gamify/gategamev2"
+       class="btn"
+       style="background: linear-gradient(135deg, #1E1B4B, #7C3AED); color: white;">
+       🗼 Gate Game
+    </a>
 
 </div>
