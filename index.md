@@ -1,9 +1,9 @@
-layout: post
-codemirror: true
-title: Chetan Tiduwar
-description: My CS111 journey — from broken sprite mappings to a fully built 3-level game system integrated into a shared engine.
-permalink: /homepage
-author: Chetan Tiduwar
+---
+layout: post 
+title: Portfolio Home 
+hide: true
+show_reading_time: false
+---
 
 # :contentReference[oaicite:0]{index=0} — CS111 Portfolio
 
