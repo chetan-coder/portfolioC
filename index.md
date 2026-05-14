@@ -1,334 +1,272 @@
----
-layout: post 
-title: Portfolio Home 
-hide: true
-show_reading_time: false
----
+layout: post
+codemirror: true
+title: Chetan Tiduwar
+description: My CS111 journey — from broken sprite mappings to a fully built 3-level game system integrated into a shared engine.
+permalink: /homepage
+author: Chetan Tiduwar
 
-> Hi! My name is Chetan Tiduwar, and I strive towards becoming a skilled computer scientist, building games, tools, and experiences through code.
+# :contentReference[oaicite:0]{index=0} — CS111 Portfolio
 
-# 🎮 Gate Game Runner
+## 🎮 Slime Escape — Full Development Journey
 
-> Play the live Gate Game directly from my portfolio homepage.
+This portfolio documents my full progression through CS111. I started with a simple slime movement system that was visually broken, and gradually built a complete three-level game integrated into a shared engine architecture.
 
-<div style="margin-top:20px; margin-bottom:30px; border-radius:16px; overflow:hidden; border:3px solid #7C3AED; box-shadow:0 0 20px rgba(124,58,237,0.4);">
-<iframe 
-    src="https://gates.opencodingsociety.com/gamify/gategamev2"
-    width="100%" 
-    height="700"
-    frameborder="0"
-    allowfullscreen
-    style="background:black;">
-</iframe>
-</div>
-
-<div style="display:flex; gap:12px; flex-wrap:wrap; margin-bottom:30px;">
-    <a href="https://gates.opencodingsociety.com/gamify/gategamev2"
-       class="btn"
-       style="background:#7C3AED; color:black; font-weight:bold;">
-       ▶ Launch Fullscreen Game
-    </a>
-
-    <a href="https://github.com/Phantom-deploy/pagesr"
-       class="btn"
-       style="background:#22C55E; color:black; font-weight:bold;">
-       💻 Source Code
-    </a>
-</div>
+Each section shows **real game runner code (%%js blocks)** paired with explanations of what changed and why it mattered.
 
 ---
 
-## Development Environment
+# Part 1: The Bug — Broken Sprite Direction Mapping
 
-> Coding starts with tools. Explore these tools and procedures with a click.
+My first working version had basic WASD movement, but the slime faced the wrong direction depending on input. The physics were correct — only the sprite mapping was wrong.
 
-<div style="display: flex; flex-wrap: wrap; gap: 10px;">
+### ❌ Wrong Mapping Version
 
-<a href="https://opencodingsociety.com"
-   class="btn"
-   style="background-color:#FA8072; color:black;">
-   OCS
-</a>
+%%js
 
-<a href="https://github.com/Open-Coding-Society/portfolio"
-   class="btn"
-   style="background-color:#D1D5DB; color:black;">
-   GitHub
-</a>
+// GAME_RUNNER: Slime moves but faces incorrect directions due to wrong sprite row mapping
 
-<a href="https://vscode.dev/"
-   class="btn"
-   style="background-color:#007ACC; color:black;">
-   VSCode.dev
-</a>
+import GameControl from '/assets/js/GameEnginev1/essentials/GameControl.js';
+import GameEnvBackground from '/assets/js/GameEnginev1/essentials/GameEnvBackground.js';
+import Player from '/assets/js/GameEnginev1/essentials/Player.js';
 
-</div>
+class GameLevelBug {
+  constructor(gameEnv) {
+    const path = gameEnv.path;
 
-<br>
+    const bgData = {
+      name: 'bg',
+      src: path + '/images/gamebuilder/bg/alien_planet.jpg',
+      pixels: { height: 772, width: 1134 }
+    };
 
-## My Lessons
+    const playerData = {
+      id: 'player',
+      src: path + '/images/gamebuilder/sprites/slime.png',
+      SCALE_FACTOR: 5,
+      STEP_FACTOR: 1000,
+      ANIMATION_RATE: 50,
+      INIT_POSITION: { x: 100, y: 435 },
+      pixels: { height: 225, width: 225 },
+      orientation: { rows: 4, columns: 4 },
 
-> Foundations in Tech are essential. Click to see some of my lesson creations.
+      down: { row: 0, start: 0, columns: 3 },
+      left: { row: 2, start: 0, columns: 3 }, // wrong
+      right: { row: 1, start: 0, columns: 3 },
+      up: { row: 3, start: 0, columns: 3 }
+    };
 
-<div style="display: flex; flex-wrap: wrap; gap: 10px;">
+    this.classes = [
+      { class: GameEnvBackground, data: bgData },
+      { class: Player, data: playerData }
+    ];
+  }
+}
 
-<a href="{{site.baseurl}}/code/javascript"
-   class="btn"
-   style="background-color: var(--green); color:black;">
-   JS Basics
-</a>
-
-<a href="{{site.baseurl}}/game/essentials/variables"
-   class="btn"
-   style="background-color: var(--blue); color:black;">
-   JS Variables
-</a>
-
-<a href="{{site.baseurl}}/gamerunner"
-   class="btn"
-   style="background-color: var(--warn); color:black;">
-   Gamerunner
-</a>
-
-<a href="{{site.baseurl}}/network/stack"
-   class="btn"
-   style="background-color: var(--orange); color:black;">
-   Networking
-</a>
-
-</div>
-
-<br>
-
-## Class Progress
-
-> Here is my game progress through coding.
-
-<div style="display: flex; flex-wrap: wrap; gap: 10px;">
-
-<a href="{{site.baseurl}}/snake"
-   class="btn"
-   style="color:black;">
-   Snake
-</a>
-
-<a href="{{site.baseurl}}/gamify/parallax"
-   class="btn"
-   style="background-color: var(--green); color:black;">
-   Fish
-</a>
-
-<a href="{{site.baseurl}}/gamify"
-   class="btn"
-   style="background-color: var(--teal); color:black;">
-   Gamify
-</a>
-
-<a href="{{site.baseurl}}/cs-pathway"
-   class="btn"
-   style="background-color: var(--orange); color:black;">
-   CS Pathway
-</a>
-
-<a href="https://gates.opencodingsociety.com/gamify/gategamev2"
-   class="btn"
-   style="background-color:#8B5CF6; color:black;">
-   Gate Game
-</a>
-
-</div>
-
-<br>
-
-# About Gate Game 🗼
-
-Gate Game is a multi-level platformer game built with JavaScript using an object-oriented game engine. I contributed by building multiple mechanics, debugging systems, and game logic integrations throughout the project.
+export const gameLevelClasses = [GameLevelBug];
+export { GameControl };
 
 ---
 
-# Part 4: Debugging With DevTools
+### 🧠 What was happening?
 
-Once the game was running, things still broke — just silently. The browser's DevTools became my main diagnostic tool.
+The sprite sheet rows were misread. Movement worked, but visuals were reversed, making the character feel “broken” even though logic was correct.
 
-## Console — Reading Errors
+---
+
+# Part 2: The Fix — Correct Sprite Sheet Mapping
+
+After inspecting the sprite sheet, I corrected the row assignments. This immediately fixed all movement directions.
+
+### ✅ Fixed Version
+
+%%js
+
+// GAME_RUNNER: Correct sprite mapping fixes all movement directions
+
+import GameControl from '/assets/js/GameEnginev1/essentials/GameControl.js';
+import GameEnvBackground from '/assets/js/GameEnginev1/essentials/GameEnvBackground.js';
+import Player from '/assets/js/GameEnginev1/essentials/Player.js';
+
+class GameLevelFixed {
+  constructor(gameEnv) {
+    const path = gameEnv.path;
+
+    const bgData = {
+      name: 'bg',
+      src: path + '/images/gamebuilder/bg/alien_planet.jpg',
+      pixels: { height: 772, width: 1134 }
+    };
+
+    const playerData = {
+      id: 'player',
+      src: path + '/images/gamebuilder/sprites/slime.png',
+      SCALE_FACTOR: 5,
+      STEP_FACTOR: 1000,
+      ANIMATION_RATE: 50,
+      INIT_POSITION: { x: 100, y: 300 },
+      pixels: { height: 225, width: 225 },
+      orientation: { rows: 4, columns: 4 },
+
+      down: { row: 2, start: 0, columns: 3 },
+      left: { row: 0, start: 0, columns: 3 },
+      right: { row: 1, start: 0, columns: 3 },
+      up: { row: 3, start: 0, columns: 3 }
+    };
+
+    this.classes = [
+      { class: GameEnvBackground, data: bgData },
+      { class: Player, data: playerData }
+    ];
+  }
+}
+
+export const gameLevelClasses = [GameLevelFixed];
+export { GameControl };
+
+---
+
+### 📊 Bug vs Fix Comparison
+
+| Issue | Before | After |
+|------|--------|------|
+| Sprite direction | Incorrect | Correct |
+| Player feel | Confusing | Natural |
+| Debug state | Guessing | Data-driven fix |
+| Root cause | Misread sprite sheet | Correct mapping applied |
+
+---
+
+# Part 3: NPCs + Collision Barriers
+
+Once movement worked, I expanded the system with NPC interaction and invisible collision barriers.
+
+A key engine rule: `fromOverlay: true` is required or collisions won’t register.
+
+%%js
+
+// GAME_RUNNER: NPC interaction + invisible collision system
+
+import GameControl from '/assets/js/GameEnginev1/essentials/GameControl.js';
+import GameEnvBackground from '/assets/js/GameEnginev1/essentials/GameEnvBackground.js';
+import Player from '/assets/js/GameEnginev1/essentials/Player.js';
+import Npc from '/assets/js/GameEnginev1/essentials/Npc.js';
+import Barrier from '/assets/js/GameEnginev1/essentials/Barrier.js';
+
+class GameLevelExpanded {
+  constructor(gameEnv) {
+    const path = gameEnv.path;
+
+    const bgData = {
+      name: 'bg',
+      src: path + '/images/gamebuilder/bg/alien_planet.jpg',
+      pixels: { height: 772, width: 1134 }
+    };
+
+    const npcData = {
+      id: 'npc',
+      greeting: 'Working...',
+      src: path + '/images/gamify/r2_idle.png',
+      SCALE_FACTOR: 5,
+      INIT_POSITION: { x: 500, y: 300 },
+      pixels: { height: 223, width: 505 },
+      orientation: { rows: 1, columns: 3 },
+      dialogues: ['Working...']
+    };
+
+    const barrier = {
+      id: 'barrier',
+      x: 309,
+      y: 89,
+      width: 28,
+      height: 252,
+      visible: false,
+      fromOverlay: true
+    };
+
+    this.classes = [
+      { class: GameEnvBackground, data: bgData },
+      { class: Player, data: playerData },
+      { class: Npc, data: npcData },
+      { class: Barrier, data: barrier }
+    ];
+  }
+}
+
+export const gameLevelClasses = [GameLevelExpanded];
+export { GameControl };
+
+---
+
+### 🧠 Key Learning
+
+- NPCs reuse the same object-based architecture as players
+- Barriers are data objects, not hardcoded logic
+- Engine behavior depends on configuration flags
+
+---
+
+# Part 4: DevTools Debugging Workflow
+
+### Console Debugging
 
 | Error | Meaning |
-|---|---|
-| 404 | Wrong file path or file doesn't exist |
-| ERR_CONNECTION_REFUSED | Server is offline |
-| CORS policy blocked | Server rejected a cross-origin request |
-| User initialization failed (non-critical) | Auth failed but game still runs |
+|------|--------|
+| 404 | Missing file path |
+| CORS | Server blocking request |
+| Connection refused | Backend offline |
 
-The CORS errors came from the game on `gates.opencodingsociety.com` calling `flask.opencodingsociety.com/api/id`. Different subdomains, and Flask wasn't configured to allow it. Once I understood that, I stopped trying to fix it in game code.
+### Application Tab (State Inspection)
 
----
-
-## Application Panel — Game State
-
-The Application tab shows what the game is storing in localStorage.
-
-```js
-gategame_player_name → Aryan
-escaperoom_coinsCollect... → 16
-```
-
-If data wasn't loading right, I could check here to see what was actually stored versus what the code expected.
+| Stored Key | Purpose |
+|------------|--------|
+| player_name | user identity |
+| coinsCollected | progression tracking |
 
 ---
 
-# Part 5: The Group Game — 3-Level Slime Escape
+# Part 5: CS111 Concepts in Real Game Code
 
-My team built a complete three-level game on the shared class game engine. You play as a slime trying to reach the sea.
+### 📊 Concept Mapping
 
-| Version | Link | What It Is |
-|---|---|---|
-| Standalone | pages.opencodingsociety.com/gategame | Original self-contained build |
-| Platform | gategame-integration | Integrated into the shared Gamify engine |
-
-Getting the standalone game working was one challenge. Getting it running inside the shared platform was harder because exports had to match the engine API perfectly.
-
----
-
-## Level 1: Cannonball Dodge
-
-Cannonballs fire from the right. Use W/S to dodge.
-
-```js
-if (playerHitbox.overlaps(cannonball)) {
-    player.x = 0;
-} else {
-    player.x += 300;
-}
-```
-
-A single conditional controlled the entire mechanic.
+| Concept | Class Example | Game Usage |
+|--------|--------------|------------|
+| Variables | x, y values | player position |
+| Conditionals | if/else | collisions |
+| Loops | forEach | entity system |
+| Arrays | lists | this.classes |
+| Objects | key-value data | configs |
+| Classes | templates | levels |
+| Booleans | true/false | game states |
+| Functions | reusable logic | interactions |
 
 ---
 
-## Level 2: Escape Room Maze
+### 🎮 Game Systems Built
 
-Navigate a maze with an NPC guide.
-
-```js
-barriers.forEach(b => this.classes.push({
-    class: Barrier,
-    data: b
-}));
-```
-
-The maze is entirely data-driven.
+| System | Mechanic | Concept Used |
+|--------|----------|-------------|
+| Movement | WASD control | variables + sprites |
+| Collision | barriers | conditionals |
+| NPCs | dialogue | objects + classes |
+| Levels | progression | architecture design |
 
 ---
 
-## Level 3: Zone Catch
+# Final Reflection
 
-Players move into safe colored zones before the timer expires.
-
-```js
-if (getPixelColor(player) === safeColor) {
-    playerSafe = true;
-}
-
-if (currentRound >= 6) {
-    showGoldenGate();
-}
-```
-
-This level combined loops, conditionals, pixel scanning, and boolean state management.
+| Stage | What I Built | What I Learned |
+|------|-------------|----------------|
+| Sprite Bug | Broken movement visuals | Data mapping matters more than code complexity |
+| Fix Phase | Correct animation system | Debugging is inspection, not guessing |
+| NPC System | Interactive objects | Reusable architecture design |
+| Barriers | Collision system | Engine flags control behavior |
+| DevTools | Debugging tools | Real-time state inspection is essential |
+| Full Game | 3-level system | Systems thinking > isolated logic |
 
 ---
 
-# Part 6: CS111 Concepts — How They Showed Up in Game Code
+## Final Takeaway
 
-| Concept | In Class | In the Game |
-|---|---|---|
-| Variables | Store a value | playerX, SCALE_FACTOR |
-| Data Types | String, Number, Boolean | Positions, flags, configs |
-| Conditionals | if/else | Hit detection |
-| Loops | for, forEach | Game loop |
-| Arrays | Lists | Game object arrays |
-| Objects | Key-value data | Config objects |
-| Classes | Blueprints | Level classes |
-| Boolean Flags | True/False state | playerSafe |
-| Functions | Reusable logic | launchCannonball() |
-
-The thing that made it click: every mechanic in the game is just a CS concept applied to a specific problem.
+This project showed me that game development is not about writing more code — it’s about structuring systems correctly. Once I understood how data flows through the engine, everything became easier to build, debug, and expand.
 
 ---
-
-# Boolean State Management
-
-```js
-let playerSafe     = false;
-let timerRunning   = true;
-let goldenGateOpen = false;
-let gameOver       = false;
-
-if (!playerSafe && timerExpired) {
-    gameOver = true;
-}
-
-if (currentRound >= 6) {
-    goldenGateOpen = true;
-}
-```
-
-Managing state across multiple rounds became one of the biggest debugging lessons in the project.
-
----
-
-# Final Reflections
-
-| What I Did | What I Learned |
-|---|---|
-| Wrong sprite rows | Read sprite sheets before mapping |
-| Fixed row mapping | Debugging is reading, not guessing |
-| Added NPC + Barrier | Config patterns transfer across objects |
-| DevTools Console | CORS is server-side |
-| DevTools Application | localStorage reveals real state |
-| Cannonball Dodge | Conditionals control mechanics |
-| Escape Room Maze | Arrays make levels editable |
-| Zone Catch | Pixel scanning + boolean logic |
-| Snake | Arrays power simple mechanics |
-| Fish Parallax | Loops + math create visual effects |
-| Shipped standalone game | Built a complete product |
-| Gamify integration | Fit code into shared architecture |
-| Networking unit | Explained debugging errors |
-
-> I came in knowing what variables and loops were. I'm leaving knowing how to use them to build something.
-
----
-
-<div style="display: flex; flex-wrap: wrap; gap: 14px; margin-top: 20px;">
-
-<a href="{{site.baseurl}}/snake"
-   class="btn"
-   style="background: linear-gradient(135deg, #111827, #1F2937); color:black;">
-   🐍 Snake
-</a>
-
-<a href="{{site.baseurl}}/gamify/parallax"
-   class="btn"
-   style="background: linear-gradient(135deg, #064E3B, #10B981); color:black;">
-   🐟 Fish
-</a>
-
-<a href="{{site.baseurl}}/gamify"
-   class="btn"
-   style="background: linear-gradient(135deg, #0F172A, #14B8A6); color:black;">
-   🎮 Gamify
-</a>
-
-<a href="{{site.baseurl}}/cs-pathway"
-   class="btn"
-   style="background: linear-gradient(135deg, #7C2D12, #F97316); color:black;">
-   🚀 CS Pathway
-</a>
-
-<a href="https://gates.opencodingsociety.com/gamify/gategamev2"
-   class="btn"
-   style="background: linear-gradient(135deg, #1E1B4B, #7C3AED); color:black;">
-   🗼 Gate Game
-</a>
-
-</div>
