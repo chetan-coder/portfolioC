@@ -79,9 +79,9 @@ show_reading_time: false
        🚀 CS Pathway
     </a>
 
-    <a href="https://groupofthree.opencodingsociety.com/gamify/escapethetower"
+    <a href="https://gates.opencodingsociety.com/gamify/gategamev2"
        style="text-decoration: none; background: linear-gradient(135deg, #1E1B4B, #7C3AED); color: white; padding: 14px 22px; border-radius: 12px; border: 2px solid #A855F7; font-weight: 700; box-shadow: 0 0 18px rgba(168,85,247,0.6); transition: all 0.25s ease;">
-       🗼 Escape the Tower
+       🗼 GateGame
     </a>
 
 </div>
@@ -102,8 +102,8 @@ show_reading_time: false
 <br>
 
 <div markdown="0">
-<h3>About Escape the Tower 🗼</h3>
-<blockquote>Escape the Tower is a multi-level platformer game built with JavaScript using an object-oriented game engine. I contributed by building the <strong>Maze of Shadows</strong> sublevel, which demonstrates core CS 111 concepts throughout.</blockquote>
+<h3>About GateGame 🗼</h3>
+<blockquote>GateGame is a multi-level platformer game built with JavaScript using an object-oriented game engine. I contributed by building the <strong>Maze of Shadows</strong> sublevel, which demonstrates core CS 111 concepts throughout.</blockquote>
 
 <p><strong>Object-Oriented Programming:</strong> The level is structured as a class <code>GameLevelMazeSub</code> with a constructor that takes a <code>gameEnv</code> parameter and instantiates all game objects. Characters like <code>Player</code>, <code>Npc</code>, and <code>SplineBarrier</code> are imported and extended from base classes, forming a multi-level inheritance chain (e.g., <code>GameObject → Character → Player</code>).</p>
 
