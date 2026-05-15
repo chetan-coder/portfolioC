@@ -19,7 +19,7 @@ description: "Class of 2029"
 owner_name: Chetan Tiduwar
 github_username: chetan-coder
 github_repo: "portfolioC" 
-baseurl: "/portfolioC" 
+baseurl: "" 
 future: true
 
 # Build settings
